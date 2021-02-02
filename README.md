@@ -12,6 +12,7 @@ Output: generates a pandas dataframe (saved as a hdf file) which contains all re
 
 Timings of stimulations and voltage steps can be easily defined and manipulated within the preprocessing script
 
+All further analysis scripts use the preprocessed hdf files to extract valuables for plotting
 
 
 
