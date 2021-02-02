@@ -3,17 +3,15 @@
 """
 Created on Mon Jan 20 15:51:43 2020
 
-Loads file from 'raw data file'
+Loads abf files containing dual patching data from various stimuli
 
-Manual sweep selection
+Calculates access resistance and quality control measures (holding current, membrane resistance)
 
 Creates pandas dataframe for each file where each row is a sweep, columns have the trace from each cell and quality control information
 
 Applies quality control criteria and appends "true/false" columns to dataframe depending on whether the sweep passed QC
 
 Saves pandas dataframe as a HDF file in a folder corresponding to that experiment (e.g. pair of cells)
-
-Saves list of passed sweeps to excel file
 
 @author: gemmagothard
 """
@@ -25,32 +23,23 @@ import os
 import numpy as np
 from openpyxl import load_workbook
 import pandas as pd
-import scipy.signal as spsig
-
-#%%
-
-animal_type = 'GTST LED'
-
-wb = load_workbook(filename = '/Users/gemmagothard/Documents/DPhil/Ephys analysis 2020/Patch data input.xlsx')
-ws = wb[animal_type]
-
 
 #% USER INPUT
 
 mV = 10 # voltage step mV used to check access resistance
 
-# pyabf inputs:
+# pyabf channel inputs:
 cell1_pA = 0 
 cell2_pA = 2
 cell1_mV = 1
 
 # samples per second
-samples_p_s = 4.096
+samples_p_ms = 4.096
 
  # data points either side of maximum to take as ipsc window
-ipsc_window = int(np.round(samples_p_s * 1,0))
+ipsc_window = int(np.round(samples_p_ms * 1,0))
 
-full_path = os.path.join('/Volumes/PHARM_AKERMAN/GG/Patch_data',animal_type,'Raw data')
+full_path = os.path.join(['data input path'])
                 
 
 # list of folders where each folder is one date of experiment, containing multiple cell pairs
@@ -75,7 +64,7 @@ for folder in folder_list:
     
         stim_type = []
     
-        # define time windows relevant for events in stimuli
+        # define time windows which are relevant for events in stimuli
         pt0     = int(0    * abf.dataPointsPerMs)
         pt04    = int(40   * abf.dataPointsPerMs)
         pt1     = int(100 * abf.dataPointsPerMs) 
@@ -160,7 +149,7 @@ for folder in folder_list:
                 mV                       = step_voltage
                 
             
-            cell1_maxind = np.argmax(abs((max_vec))) # find index of IPSC peak 
+            cell1_maxind = np.argmax(abs((max_vec))) # find index of opto IPSC peak 
             
             # find the average around the IPSC peak
             cell1_max    = np.average(max_vec[cell1_maxind-ipsc_window:cell1_maxind+ipsc_window])   # IPSC peak value
