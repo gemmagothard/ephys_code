@@ -1,7 +1,7 @@
 # ephys_code
 Code used to analyse in vitro ephys data, from Akerman lab, Oxford. Code written by Gemma Gothard.
 
-Used for a range of stimuli in paired whole-cell patch clamp recordings in voltage clamp; including opsin stimulation, spontaneous recordings, voltage steps
+Used for a range of stimuli in paired whole-cell patch clamp recordings in voltage clamp including; opsin stimulation, spontaneous recordings, voltage steps
 
 All stimuli are recorded with a 10mv voltage in every sweep to calculate access resistance offline
 
