@@ -64,7 +64,7 @@ for count,sweep in enumerate(abf.sweepList):
 RMP = get_membrane_potential(voltage,stim_start)
 
 # find input resistance (mOhm) 
-Input_R = get_input_resistance(RMP,voltage,current_step)
+Input_R = get_input_resistance(RMP,voltage,current_step,stim_start,stim_end)
 
 # find spikes
 spikes, spike_amplitude = get_spikes(voltage, stim_start, stim_end)
