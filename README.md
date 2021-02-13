@@ -13,11 +13,3 @@ Preprocessing elements include; access resistance & membrane resistance calculat
 
 Output: generates a pandas dataframe (saved as a hdf file) which contains all relevant information for each file and saves it inside a folder for each pair of cells
 
-Timings of stimulations and voltage steps can be easily defined and manipulated within the preprocessing script
-
-All further analysis scripts use the preprocessed hdf files to extract variables for plotting
-
-
-
-
-
