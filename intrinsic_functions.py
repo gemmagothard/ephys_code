@@ -27,10 +27,10 @@ def get_membrane_potential(voltage,stim_start):
     return RMP
 
 
-def get_input_resistance(RMP,voltage,current_step):
+def get_input_resistance(RMP,voltage,current_step,stim_start,stim_end):
     
     # find voltage during current step:
-    step_voltage = [np.median(x[2000:4000]) for x in voltage]
+    step_voltage = [np.median(x[stim_start:stim_end]) for x in voltage]
         
     # find difference in voltage between resting membrane potential and current step
     delta_v = [x - RMP[c] for c,x in enumerate(step_voltage)]
@@ -91,14 +91,14 @@ def get_spike_threshold(spikes,voltage,time,stim_start,stim_end,samples_per_ms):
 
     
     # spike threshold is defined as when dVm/dt crosses 25 preceding a spike
-    threshold_dVmdt = 20
+    threshold_dVmdt = 25
     
     spike_threshold_mV = []
     all_idx = []
     
     for c,s in enumerate(spikes):
         
-        v = voltage[c][stim_start+50:stim_end]
+        v = voltage[c][stim_start:stim_end]
         
         # find first derivative of membrane potential
         dVmdt = np.diff(v) * samples_per_ms
@@ -112,7 +112,7 @@ def get_spike_threshold(spikes,voltage,time,stim_start,stim_end,samples_per_ms):
         # take the values where voltage is less than zero - this will be the crossing that happens just before the spike, instead of above zero which is after
         spike_threshold_mV.append(idx_v[idx_v<0])
         
-        all_idx.append(idx+stim_start+50)
+        all_idx.append(idx+stim_start)
 
 
     return spike_threshold_mV, all_idx
