@@ -17,7 +17,7 @@ import statistics as st
 
 from intrinsic_functions import get_membrane_potential, get_input_resistance, get_ISIs, get_spikes, get_spike_rates, get_spike_threshold, get_peak_widths
 
-file = "/Users/gemmagothard/Documents/DPhil/Layer 4 ephys analysis/2020_10_01_0002.abf"
+file = "file/path"
 
 # stim start and end in ms
 stim_start = 650
